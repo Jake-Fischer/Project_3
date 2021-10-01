@@ -21,19 +21,21 @@ class Questions(Model):
 
 
 class Results(Model):
-    start_time = 
-    question_id = # Foreign Key
-    user_answer = 
-    points_earned = 
-    was_correct = 
-    end_time = 
-    quiz_session = 
+    start_time = TimestampField()
+    # question_id = # Foreign Key
+    user_answer = CharField()
+    points_earned = IntegerField()
+    was_correct = BooleanField()
+    end_time = TimestampField()
+    quiz_session = CharField()
     
  #Have python record start and end time and calculate it on its own, not the db
 
 db.connect()
+
 def main():
     categories_and_number_of_questions = get_topics_from_database()
+    print(categories_and_number_of_questions)
     display_topics_for_user(categories_and_number_of_questions)
     user_topic_choice = ask_user_for_topic(categories_and_number_of_questions)
     if validate_topic_is_in_dictionary(user_topic_choice, categories_and_number_of_questions):
@@ -67,7 +69,8 @@ def ask_user_for_topic(categories_and_questions):
         print('Sorry, that is not a valid topic')
 
 def ask_user_for_number_of_questions(user_topic, categories_and_questions):
-    number_of_questions = 
+    number_of_questions = input('Please enter the number of questions you would like you answer:\n')
+
 
 def validate_topic_is_in_dictionary(topic, dictionary):
     if topic not in dictionary:
@@ -81,6 +84,7 @@ def validate_number_of_questions_in_topic(topic, dictionary, number):
     else:
         return False
 
+main()
 # start_quiz
 # record_time_user_started_quiz
 # ask_user_questions_one_at_a_time
