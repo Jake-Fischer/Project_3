@@ -3,7 +3,6 @@ from database_config import database_path
 
 db = SqliteDatabase(database_path)
 
-
 class Questions(Model):
     # Represents a question in the database
     question_id = IntegerField(unique=True)
@@ -25,7 +24,7 @@ class Questions(Model):
 class Results(Model):
     # Represents an answer in the database
     timestamp = IntegerField()
-    question_id = IntegerField()
+    question_id = IntegerField() # HELP PLEASE WHAT IS A FOREIGN KEY AND HOW DO I USE IT WITH PEEWEE
     user_answer = CharField()
     points_earned = IntegerField()
     was_correct = BooleanField()

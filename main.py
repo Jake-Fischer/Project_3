@@ -1,11 +1,10 @@
 import model
-from model import Questions, Results
 import ui
 import quiz
 
 def main():
     
-    topics_and_questions = ui.get_topics_and_number_of_questions()
+    topics_and_questions = quiz.get_topics_and_number_of_questions()
 
     ui.display_topics_and_number_of_questions(topics_and_questions)
 
@@ -17,7 +16,7 @@ def main():
 
     quiz.run_quiz(quiz_questions)
 
-
+    model.db.close()
 
 
 if __name__ == '__main__':
