@@ -38,9 +38,14 @@ def ask_question(question): # Prints the question information and answers in ran
         print(f'-{a}')
 
 
-def display_quiz_results(tt, number_of_questions_asked, number_of_questions_correct, total_points_available, total_points_earned, score): # Prints quiz results
+def display_quiz_results(tt, number_of_questions_asked, number_of_questions_correct, total_points_available, total_points_earned, score): # Prints quiz result data
     print('-----Here are the results for your quiz-----\n')
     print(f'It took you {tt} hours to complete this quiz.')
     print(f'You got {number_of_questions_correct} out of {number_of_questions_asked} questions correct.')
     print(f'Your score is {total_points_earned}/{total_points_available}, which is a score of {score}%')
     print('Thank you for using this quiz program!\nPlease run the program again to try again.')
+
+
+def get_user_answer():
+    user_answer =  input('Answer: ')
+    return user_answer
