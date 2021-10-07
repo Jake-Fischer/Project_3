@@ -18,12 +18,47 @@ def get_topics_and_number_of_questions():
     return categories_and_question_count
 
 
-def get_quiz_questions(topic, number_of_questions): # Obtain a specific number of questions from the database from a given topic. Return question data in a list.
-    topic_questions = Question.select(Question.question_id, Question.category, Question.question_text, Question.correct_answer, Question.wrong_answer1, Question.wrong_answer2, Question.wrong_answer3, Question.difficulty, Question.points_available).where(Question.category == topic)
+def get_quiz_questions(topic, number_of_questions):
+    """Obtain a specific number of questions from the database from a given topic. Save question data in a dictionary and add it to a list. Return list of question dictionaries."""
+    # Question.question_id, Question.category, Question.question_text, Question.correct_answer, Question.wrong_answer1, Question.wrong_answer2, Question.wrong_answer3, Question.difficulty, Question.points_available
+    # topic_questions = Question.select().where(Question.category == topic)
     quiz_questions = []
-    for i in range(number_of_questions):
-        question = topic_questions[i]
-        quiz_questions.append(question)
+    # print(topic_questions)
+    for question in Question.select(Question.category, Question.question_text, Question.correct_answer, Question.wrong_answer1, Question.wrong_answer2, Question.wrong_answer3, Question.difficulty, Question.points_available).where(Question.category == topic).limit(number_of_questions):
+            question_data = {}
+            question_data['id'] = question.id
+            question_data['category'] = question.category
+            question_data['question_text'] = question.question_text
+            question_data['correct_answer'] = question.correct_answer
+            question_data['wrong_answer1'] = question.wrong_answer1
+            question_data['wrong_answer2'] = question.wrong_answer2
+            question_data['wrong_answer3'] = question.wrong_answer3
+            question_data['difficulty'] = question.difficulty
+            question_data['points_available'] = question.points_available
+            quiz_questions.append(question_data)
+    # for i in range(number_of_questions):
+    #     # topic_question = Question.select(Question.category, Question.question_text, Question.correct_answer, Question.wrong_answer1, Question.wrong_answer2, Question.wrong_answer3, Question.difficulty, Question.points_available).where(Question.category == topic)
+    #     question_data = {}
+    #     for question in Question.select(Question.category, Question.question_text, Question.correct_answer, Question.wrong_answer1, Question.wrong_answer2, Question.wrong_answer3, Question.difficulty, Question.points_available).where(Question.category == topic):
+    #         # print(question.category)
+    #         question_data['category'] = question.category
+    #         question_data['question_text'] = question.question_text
+    #         question_data['correct_answer'] = question.correct_answer
+    #         question_data['wrong_answer1'] = question.wrong_answer1
+    #         question_data['wrong_answer2'] = question.wrong_answer2
+    #         question_data['wrong_answer3'] = question.wrong_answer3
+    #         question_data['difficulty'] = question.difficulty
+    #         question_data['points_available'] = question.points_available
+    #     # print(question_data)
+    #     # print(topic_question)
+    #     # print(topic_question.id)
+    #     # print(topic_question.category)
+    #     # print(i)
+    #     # print(topic_questions[i])
+    #     # question = topic_questions[i]
+    #     # print(question)
+    #     quiz_questions.append(question_data)
+    print(quiz_questions)
     return quiz_questions
 
 
@@ -34,18 +69,19 @@ def run_quiz(quiz_questions): # Executes a quiz with a given question list
     print('The quiz has begun! Please enter your answers.\n')
     for question in quiz_questions: # Ask the question, initialize default values for the Results table
         ui.ask_question(question)
+        correct_answer = question['correct_answer']
         was_correct = False
         user_answer = ui.get_user_answer()
         time_attempted = time.time()
         points_earned = 0
-        if check_user_answer(question.correct_answer, user_answer): # Check if question is correct
-            print(f'Correct! The answer was {question.correct_answer}\n')
+        if check_user_answer(correct_answer, user_answer): # Check if question is correct
+            print(f'Correct! The answer was {correct_answer}\n')
             was_correct = True
-            points_earned = question.points_available
+            points_earned = question['points_available']
         else:
-            print(f'Sorry, that was Incorrect. The correct answer was {question.correct_answer}\n')
+            print(f'Sorry, that was Incorrect. The correct answer was {correct_answer}\n')
         # Create a record for each question asked
-        create_result_record(time_attempted, question.question_id, user_answer, points_earned, was_correct, unique_id)
+        create_result_record(time_attempted, user_answer, points_earned, was_correct, unique_id)
     # On quiz completion, calculate endtime
     end_time = datetime.now()
     total_time_taken = end_time - start_time

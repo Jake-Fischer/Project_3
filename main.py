@@ -4,6 +4,8 @@ import quiz
 
 def main():
     
+    model.db.connect()
+    
     topics_and_questions = quiz.get_topics_and_number_of_questions()
 
     ui.display_topics_and_number_of_questions(topics_and_questions)

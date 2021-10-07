@@ -30,9 +30,17 @@ def request_number_of_questions( user_topic ): # Asks the user for the number of
 
 
 def ask_question(question): # Prints the question information and answers in random order
-    print(f'The category is: {question.category}. The difficulty is {question.difficulty} (1-5 Scale). It is worth {question.points_available} points.\n')
-    print(question.question_text)
-    possible_answers = [question.correct_answer, question.wrong_answer1, question.wrong_answer2, question.wrong_answer3]
+    category = question['category']
+    difficulty = question['difficulty']
+    points_available = question['points_available']
+    question_text = question['question_text']
+    correct_answer = question['correct_answer']
+    wrong_answer1 = question['wrong_answer1']
+    wrong_answer2 = question['wrong_answer2']
+    wrong_answer3 = question['wrong_answer3']
+    print(f'The category is: {category}. The difficulty is {difficulty} (1-5 Scale). It is worth {points_available} points.\n')
+    print(question_text)
+    possible_answers = [correct_answer, wrong_answer1, wrong_answer2, wrong_answer3]
     random.shuffle(possible_answers)
     for a in possible_answers:
         print(f'-{a}')
