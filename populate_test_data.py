@@ -6,10 +6,11 @@ db = SqliteDatabase(database_path)
 
 
 db.connect()
-# db.create_tables([Question, Result])
+
 Question.drop_table()
 
 def populate_test_data():
+    
     db.create_tables([Question, Result])
     #1
     Question.create(
