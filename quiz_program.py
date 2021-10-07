@@ -3,7 +3,7 @@ from peewee import *
 db = SqliteDatabase('quiz_database.sqlite')
 
 class Questions(Model):
-    id = IntegerField()
+    id = IntegerField()   # 
     category = CharField()
     question_text = CharField()
     correct_answer = CharField()
