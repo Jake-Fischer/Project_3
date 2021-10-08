@@ -4,13 +4,6 @@ from database_config import database_path
 db = SqliteDatabase(database_path)
 
 class Question(Model):
-    # Represents a question in the database
-    # question_id = IntegerField(unique=True)
-#
-#Added back id field
-#id = IntegerField()
-#
-
     category = CharField()
     question_text = CharField()
     correct_answer = CharField()
@@ -28,7 +21,7 @@ class Question(Model):
 
 class Result(Model):
     timestamp = IntegerField()
-    question = ForeignKeyField(Question, backref='poop') # question_id =  ForeignKeyField(Question, backref = 'question_id') #I am unsure how to make this a foreign key... When I try what's commented out it crashes with this error 'peewee.InterfaceError: Error binding parameter 0 - probably unsupported type.'
+    question = ForeignKeyField(Question, backref='questions')
     user_answer = CharField()
     points_earned = IntegerField()
     was_correct = BooleanField()
