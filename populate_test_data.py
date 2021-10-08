@@ -8,9 +8,10 @@ db = SqliteDatabase(database_path)
 db.connect()
 
 Question.drop_table()
+Result.drop_table()
 
 def populate_test_data():
-    
+
     db.create_tables([Question, Result])
     #1
     Question.create(
