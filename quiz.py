@@ -6,8 +6,8 @@ import uuid
 
 
 def get_topics_and_number_of_questions():
-    """Obtain all topics and the number of questions in each. Return in a dictionary."""
 
+    """Obtain all topics and the number of questions in each. Return in a dictionary."""
     question_categories = Question.select(Question.category)
     categories_and_question_count = {}
     for question in question_categories:
@@ -19,8 +19,8 @@ def get_topics_and_number_of_questions():
 
 
 def get_quiz_questions(topic, number_of_questions):
-    """Obtain a specific number of questions from the database from a given topic. Save question data in a dictionary and add it to a list. Return list of question dictionaries."""
 
+    """Obtain a specific number of questions from the database from a given topic. Save question data in a dictionary and add it to a list. Return list of question dictionaries."""
     quiz_questions = []
     for question in Question.select(Question.id, Question.category, Question.question_text, Question.correct_answer, Question.wrong_answer1, Question.wrong_answer2, Question.wrong_answer3, Question.difficulty, Question.points_available).where(Question.category == topic).limit(number_of_questions):
             question_data = {}
@@ -34,12 +34,13 @@ def get_quiz_questions(topic, number_of_questions):
             question_data['difficulty'] = question.difficulty
             question_data['points_available'] = question.points_available
             quiz_questions.append(question_data)
+    # print(quiz_questions)
     return quiz_questions
 
 
 def run_quiz(quiz_questions):
-    """Executes a quiz"""
 
+    """Executes a quiz"""
     start_time = datetime.now()
     unique_id = uuid.uuid4() # Create unique ID that will be assigned to all question results from this quiz
     print('The quiz has begun! Please enter your answers.\n')
@@ -51,8 +52,8 @@ def run_quiz(quiz_questions):
         
 
 def ask_question(question, unique_id):
-    """Ask the user a question"""
 
+    """Ask the user a question"""
     ui.display_question(question)
     correct_answer = question['correct_answer']
     question_id = question['id']
@@ -70,8 +71,8 @@ def ask_question(question, unique_id):
 
 
 def check_user_answer(correct_answer, user_answer):
-    """Check if correct_answer is equal to user_answer"""
 
+    """Check if correct_answer is equal to user_answer"""
     if correct_answer == user_answer:
         return True
     else:
@@ -79,15 +80,15 @@ def check_user_answer(correct_answer, user_answer):
 
 
 def create_result_record(time_attempted, question_id, user_answer, points_earned, was_correct, unique_id):
-    """Create a record for the question that was answered"""
 
+    """Create a record for the question that was answered"""
     result = Result(timestamp = time_attempted, question_id = question_id, user_answer = user_answer, points_earned = points_earned, was_correct = was_correct, unique_id = unique_id)
     result.save()
 
 
 def calculate_quiz_results(unique_id, total_time_taken):
+    
     """Calculate test results and call a function to display them"""
-
     number_of_questions_asked = Result.select().where(Result.unique_id == unique_id).count()
     number_of_questions_correct = Result.select().where(Result.unique_id == unique_id, Result.was_correct == True).count()
     total_points_available = 0
