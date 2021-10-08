@@ -102,5 +102,3 @@ def calculate_quiz_results(unique_id, total_time_taken):
     score = total_points_earned / total_points_available * 100
 
     ui.display_quiz_results(total_time_taken, number_of_questions_asked, number_of_questions_correct, total_points_available, total_points_earned, score)
-
-

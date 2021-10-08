@@ -63,6 +63,7 @@ def display_quiz_results(time_taken, number_of_questions_asked, number_of_questi
 
 def get_user_answer():
     """Obtain user input"""
-    
+
     user_answer =  input('Answer: ')
     return user_answer
+    
