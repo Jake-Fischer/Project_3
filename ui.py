@@ -1,9 +1,9 @@
-import quiz
 import random
 
 
 def display_topics_and_number_of_questions(topics_and_number_of_questions):
     """Display a list of topics to the user"""
+
     print('Here are the topics you can choose from:\n')
     for category in topics_and_number_of_questions:
         print(category + ' which has ' + str(topics_and_number_of_questions[category]) + ' questions in it')
@@ -12,6 +12,7 @@ def display_topics_and_number_of_questions(topics_and_number_of_questions):
 
 def request_valid_topic(topics_and_number_of_questions):
     """Ask the user for a valid topic"""
+
     while True:
         user_topic = input('Please enter your topic of choice:\n')
         if user_topic in topics_and_number_of_questions:
@@ -22,6 +23,7 @@ def request_valid_topic(topics_and_number_of_questions):
 
 def request_number_of_questions(user_topic, topics_and_number_of_questions):
     """Ask the user for the number of questions they would like"""
+
     while True:
         user_number_of_questions = int(input('Please enter the number of questions you would like to be asked:\n'))
         if user_number_of_questions <= topics_and_number_of_questions[user_topic]:
@@ -30,8 +32,9 @@ def request_number_of_questions(user_topic, topics_and_number_of_questions):
             print('Sorry, that is not a valid number of questions:\n')
 
 
-def ask_question(question):
+def display_question(question):
     """Print the question information and answers in random order"""
+
     category = question['category']
     difficulty = question['difficulty']
     points_available = question['points_available']
@@ -50,6 +53,7 @@ def ask_question(question):
 
 def display_quiz_results(time_taken, number_of_questions_asked, number_of_questions_correct, total_points_available, total_points_earned, score):
     """Print quiz result data"""
+
     print('-----Here are the results for your quiz-----\n')
     print(f'It took you {time_taken} hours to complete this quiz.')
     print(f'You got {number_of_questions_correct} out of {number_of_questions_asked} questions correct.')
@@ -59,5 +63,6 @@ def display_quiz_results(time_taken, number_of_questions_asked, number_of_questi
 
 def get_user_answer():
     """Obtain user input"""
+    
     user_answer =  input('Answer: ')
     return user_answer
