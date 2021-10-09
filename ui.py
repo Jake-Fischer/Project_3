@@ -25,11 +25,16 @@ def request_number_of_questions(user_topic, topics_and_number_of_questions):
 
     """Ask the user for the number of questions they would like"""
     while True:
-        user_number_of_questions = int(input('Please enter the number of questions you would like to be asked:\n'))
-        if user_number_of_questions <= topics_and_number_of_questions[user_topic]:
-            return user_number_of_questions
+        user_number_of_questions = input('Please enter the number of questions you would like to be asked:\n')
+        if user_number_of_questions.isnumeric():
+            user_number_of_questions = int(user_number_of_questions)
+            if user_number_of_questions <= topics_and_number_of_questions[user_topic]:
+                return user_number_of_questions
+            else:
+                print('Sorry, that is not a valid number of questions:\n')
         else:
             print('Sorry, that is not a valid number of questions:\n')
+            pass
 
 
 def display_question(question):
@@ -62,7 +67,7 @@ def display_quiz_results(time_taken, number_of_questions_asked, number_of_questi
 
 
 def get_user_answer():
-    
+
     """Obtain user input"""
     user_answer =  input('Answer: ')
     return user_answer

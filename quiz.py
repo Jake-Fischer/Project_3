@@ -49,6 +49,7 @@ def run_quiz(quiz_questions):
     end_time = datetime.now()
     total_time_taken = end_time - start_time
     calculate_quiz_results(unique_id, total_time_taken)
+    return True
         
 
 def ask_question(question, unique_id):
@@ -68,12 +69,13 @@ def ask_question(question, unique_id):
     else:
         print(f'Sorry, that was Incorrect. The correct answer was {correct_answer}\n')
     create_result_record(time_attempted, question_id, user_answer, points_earned, was_correct, unique_id)
+    return True
 
 
 def check_user_answer(correct_answer, user_answer):
 
     """Check if correct_answer is equal to user_answer"""
-    if correct_answer == user_answer:
+    if correct_answer.lower() == user_answer.lower():
         return True
     else:
         return False
@@ -87,7 +89,7 @@ def create_result_record(time_attempted, question_id, user_answer, points_earned
 
 
 def calculate_quiz_results(unique_id, total_time_taken):
-    
+
     """Calculate test results and call a function to display them"""
     number_of_questions_asked = Result.select().where(Result.unique_id == unique_id).count()
     number_of_questions_correct = Result.select().where(Result.unique_id == unique_id, Result.was_correct == True).count()
@@ -103,3 +105,5 @@ def calculate_quiz_results(unique_id, total_time_taken):
     score = total_points_earned / total_points_available * 100
 
     ui.display_quiz_results(total_time_taken, number_of_questions_asked, number_of_questions_correct, total_points_available, total_points_earned, score)
+    
+    return True

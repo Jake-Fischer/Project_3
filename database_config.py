@@ -4,4 +4,4 @@ regular database with a different database for testing
 This prevents the tests affecting the real data in the app.
 """
 
-database_path = 'quiz_database.sqlite'
+database_path = 'test_quiz_database.sqlite'
