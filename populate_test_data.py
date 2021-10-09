@@ -2,14 +2,19 @@ from peewee import *
 from database_config import database_path
 from model import Question, Result
 
+
 """This program drops all existing tables in a given database and repopulates the question table with default data"""
+
 
 db = SqliteDatabase(database_path)
 
+
 db.connect()
+
 
 Question.drop_table()
 Result.drop_table()
+
 
 def populate_test_data():
 
@@ -64,5 +69,6 @@ def populate_test_data():
     wrong_answer3 = '100',
     difficulty = 3,
     points_available = 60)
+
 
 populate_test_data()

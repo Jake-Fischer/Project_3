@@ -2,6 +2,7 @@ import model
 import ui
 import quiz
 
+
 def main():
     
     model.db.connect()
@@ -23,4 +24,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    

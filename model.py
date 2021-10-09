@@ -1,6 +1,7 @@
 from peewee import *
 from database_config import database_path
 
+
 db = SqliteDatabase(database_path)
 
 
