@@ -105,8 +105,12 @@ def check_user_answer(correct_answer, user_answer):
 def create_result_record(time_attempted, question_id, user_answer, points_earned, was_correct, unique_id):
 
     """Create a record for the question that was answered"""
-    result = Result(timestamp = time_attempted, question_id = question_id, user_answer = user_answer, points_earned = points_earned, was_correct = was_correct, unique_id = unique_id)
-    result.save()
+    try:
+        result = Result(timestamp = time_attempted, question_id = question_id, user_answer = user_answer, points_earned = points_earned, was_correct = was_correct, unique_id = unique_id)
+        result.save()
+    except:
+        print('Something has gone wrong, result can\'t be saved.')
+        return False
 
 
 def calculate_quiz_results(unique_id, total_time_taken):

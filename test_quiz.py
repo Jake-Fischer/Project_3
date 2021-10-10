@@ -8,7 +8,6 @@ class TestQuiz(unittest.TestCase):
     def test_get_topics_and_number_of_questions(self):
         expected_dictionary = {'animals':2, 'sports':2, 'literature':1}
         wrong_dictionary = {'notanimals':2, 'notsports':2, 'notliterature':1}
-
         self.assertEqual(expected_dictionary, quiz.get_topics_and_number_of_questions())
         self.assertNotEqual(wrong_dictionary, quiz.get_topics_and_number_of_questions())
 
@@ -25,7 +24,6 @@ class TestQuiz(unittest.TestCase):
         example_questions = [{'id': 2, 'category': 'sports', 'question_text': 'How many rings are on the Olympic flag?', 'correct_answer': '5', 'wrong_answer1': 'None', 'wrong_answer2': '4', 'wrong_answer3': '7', 'difficulty': 1, 'points_available': 20}]
         self.assertTrue(quiz.run_quiz(example_questions))
         self.assertFalse(quiz.run_quiz(empty_list))
-        
         
 
     def test_ask_question(self):
